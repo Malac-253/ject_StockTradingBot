@@ -1,0 +1,65 @@
+=============================================================================================
+Help File - "db_manager.py [arg]"
+=============================================================================================
+'help'
+	> prints help file (this file)
+	> db_manager.py help
+'createtables'
+	> Will create the initial database for the initial list, Initial list of stocks as 
+	specified in the 'stock.txt' file.
+	> WILL REMOVE OLD TABLES AND REPLACE IT
+	> Can change specified file by adding additional argument
+		-e.g  'db_manager.py createtables newlist.txt'
+'createtablesspecific' [deprecated][Abandoned]
+	> Will create the specific database for the initial list, Initial list of stocks as 
+	specified in the your input file.
+	> Additional argument ...
+		-e.g  'db_manager.py createtablesspecific newlist.txt pass stockdata2'
+		-text file, password, database name
+'updatetables'
+	> Will update the initial database with new stock prices up until to day for stocks 
+	from the initial list, Initial list of stocks as specified in the 'stock.txt' file.
+	> Can change specified start and end day by adding additional argument
+		-e.g  'db_manager.py updatetables 2011-01-01 2020-12-31'
+		-e.g  'db_manager.py updatetables start 2020-12-31'
+		-e.g  'db_manager.py updatetables end 2020-12-31'
+		-[Start:YYYY-MM-DD End:YYYY-MM-DD]
+	>Will not update old file, only add new ones
+'updatetablesspecific'[deprecated][Abandoned]
+	> Will update the specific database with new stock prices up until to day for stocks 
+	from the specific list, specific list of stocks as specified in the input text file.
+	> Can change specified start and end day by adding additional argument
+		-e.g  'db_manager.py updatetablesspecific newlist.txt pass stockdata2 2011-01-01 2020-12-31'
+		-text file, password, database name [Start:YYYY-MM-DD End:YYYY-MM-DD]
+'chart'
+	> Create a chart for the stocks
+	> Can specify stock, time type, timeperiod start , end, show
+		- stock - any stocks form data base e.g JYNT
+			.e.g 'db_manager.py chart JYNT'
+			.e.g 'db_manager.py chart JYNT,AAL'
+		- time type - [day,week,month](for standard)[Abandoned]
+			> only day works at this time. 
+			.e.g 'db_manager.py chart JYNT day'
+			.e.g 'db_manager.py chart JYNT week'[need to add]
+			.e.g 'db_manager.py chart JYNT mouth'[need to add]
+		- timeperiod start,end - [Start:YYYY-MM-DD End:YYYY-MM-DD]
+			.e.g 'db_manager.py chart JYNT day 2021-01-01 2021-06-01'
+			.e.g 'db_manager.py chart JYNT day end 2021-06-01' (to pick only end)
+			.e.g 'db_manager.py chart JYNT day start 2021-06-01 ' (to pick only start)
+		- show - [show,save,{none}(all/for standard)]show/open(or just save)
+			.e.g 'db_manager.py chart JYNT day 2021-01-01 2021-06-01 save'
+			>can also specify file type [png,svg,html(Interactive)]
+			.e.g 'db_manager.py chart JYNT day 2021-01-01 2021-06-01 save html'
+		- You can skip an arg with the word "all"
+			.e.g 'db_manager.py chart all day'
+			.e.g 'db_manager.py chart all week'
+			.e.g 'db_manager.py chart all all 2021-01-01 2021-06-01'(will defalut to day)
+			.e.g 'db_manager.py chart all all 2021-01-01 2021-06-01 both html'
+'analysis'
+	> Will create the tables of daily price calculated data featuring all the variables 
+	and identifiers needed for analysis.
+	> Should print out a graph of all the analysis togethere
+	> refer to commands specific help file for more information
+		-e.g  'db_manager.py analysis help'
+	> Specify specific indicator to calculate with another argument 
+		-e.g  'db_manager.py analysis trends'
