@@ -3,10 +3,11 @@
 #By Malachi I Beerram
 #GitHub @malac-253
 #Started:		06/23/21
-#Last Updated:	07/01/21
+#Last Updated:	07/19/21
 
 ## Arguments Check
 import sys
+print(">db_manager.py")
 print(f"Arguments count: {len(sys.argv)}")
 for i, arg in enumerate(sys.argv):
     print(f"Argument {i:>6}: {arg}")
@@ -36,6 +37,10 @@ import trendet
 import time
 import backtrader as bt
 from plotly.subplots import make_subplots
+import json
+import matplotlib.dates as mpl_dates
+import matplotlib.pyplot as plt
+from itertools import permutations
 
 print("Imports loaded  :)")
 
@@ -354,268 +359,21 @@ def chart():
 			print ("Attempting to show ...")
 			fig.show()
 
-## Will create the tables of daily price calculated data featuring all the variables and identifiers needed for analysis.  
-"""
-The current system is extremely inefficient however it's an efficiency is purposeful to allow me to more 
-easily circumventing the back trader indicator line strategy pattern, to allow more ease-of-use while 
-implementing the genetic algorithm 
-"""
-def analysis():
-
-	##START
-	print("Creating the analysis table-base ... this could take a while")
-
-	## Removing old table if EXISTS
-	engine.execute('DROP TABLE IF EXISTS _test_analysis_table_prices;')
-
-	## Getting symbolsto chart
-	symbols = sys.argv[2].split(",")
-
-	#if all getting all from database
-	if symbols[0] == "all":
-		data = engine.execute("SELECT symbol FROM _daily_prices GROUP BY symbol")
-		symbols = [item['symbol'] for item in data.fetchall()]
-	print("Stocks for analysis :",symbols)
-
-	## Indicator analysis helper, handle Indicator stock analysis object
-	def Indicator_analysis_helper_init(Indicator_analysis_obj,Indicator_str,Parameters_dic):
-		## Calculating procedurally-generated name
-		Indicator_name = Indicator_str.lower()+'_'+str("_".join(map(str, Parameters_dic.values())))
-
-		## Creating base Indicator attribute
-		setattr(Indicator_analysis_obj, Indicator_name, 
-			getattr(bt.ind,Indicator_str)(**Parameters_dic) ##calls bt.ind.'*Indicator_str'(*Parameters_dic)
-		)
-	def Indicator_analysis_helper_stop(Indicator_analysis_obj,Indicator_str,Parameters_dic):
-		## Calculating procedurally-generated name
-		Indicator_name = Indicator_str.lower()+'_'+str("_".join(map(str, Parameters_dic.values())))
-
-		##Fetching base Indicator attribute and it's data and adding to dataframe
-		Ind_tmp = getattr(Indicator_analysis_obj, Indicator_name)
-		dfmain[Indicator_name] = Ind_tmp.get(size=len(Ind_tmp))
-	def Indicator_analysis_helper_plot(Plot_figure_obj,Indicator_str,Parameters_dic,Weighted_squeeze_flo,
-		Plot_row_int = 1 ,Plot_col_int = 1, Mean_factor_bol = False):
-		## Calculating procedurally-generated name
-		Indicator_name = Indicator_str.lower()+'_'+str("_".join(map(str, Parameters_dic.values())))
-
-		## adding view scaling if needed
-		mean = 1
-		if Mean_factor_bol : mean = dfmain['close'].mean()
-
-		## adding a trace line to the to the Plot_figure_obj 
-		Plot_figure_obj.add_trace(
-				go.Scatter(
-					x=dfmain.index[...],
-					y=((dfmain[Indicator_name]*Weighted_squeeze_flo)*(mean)),
-					name=Indicator_name),
-				row=Plot_row_int, col=Plot_col_int
-			) 
-	## Using a json update	
-	def Indicator_analysis_helper_json_init(Indicator_analysis_obj,
-		Indicator_object,
-		Link_Indicator_Parameters_dic,
-		Curr_Indicator_Parameters_dic,
-		Indicator_Parameters_keys):
-
-		print(Indicator_Parameters_keys)
-		print(Curr_Indicator_Parameters_dic)
-
-
-		start = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0]
-		end = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1]
-		freqs = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2]
-
-		for x in range(start,end,freqs):
-			Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = x
-			#Indicator_analysis_helper_init(Indicator_analysis_obj,Indicator_object['Indicator_str'],Curr_Indicator_Parameters_dic)
-
-			if len(Indicator_Parameters_keys) > 1:
-				Indicator_analysis_helper_json_init(Indicator_analysis_obj,Indicator_object,
-					Link_Indicator_Parameters_dic,
-					Curr_Indicator_Parameters_dic,
-					Indicator_Parameters_keys[1:])
-			else:
-				Indicator_analysis_helper_init(Indicator_analysis_obj,Indicator_object['Indicator_str'],Curr_Indicator_Parameters_dic)
-
-	def Indicator_analysis_helper_json_stop(Indicator_analysis_obj,
-		Indicator_object,
-		Link_Indicator_Parameters_dic,
-		Curr_Indicator_Parameters_dic,
-		Indicator_Parameters_keys):
-
-		print(Indicator_Parameters_keys)
-
-		start = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0]
-		end = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1]
-		freqs = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2]
-
-		for x in range(start,end,freqs):
-			Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = x
-			#Indicator_analysis_helper_init(Indicator_analysis_obj,Indicator_object['Indicator_str'],Curr_Indicator_Parameters_dic)
-
-			if len(Indicator_Parameters_keys) > 1:
-				Indicator_analysis_helper_json_init(Indicator_analysis_obj,Indicator_object,
-					Link_Indicator_Parameters_dic,
-					Curr_Indicator_Parameters_dic,
-					Indicator_Parameters_keys[1:])
-			else:
-				Indicator_analysis_helper_json_init(Indicator_analysis_obj,Indicator_object['Indicator_str'],Curr_Indicator_Parameters_dic)
-
-
-	maxer = 600
-	spacer = 20
-	starter = 5
-	log_parm = (('maxer',60),('spacer',20),('starter',5),('maxer2',20))
-	maxer2 = 200
 
 
 
 
-	## The Indicator analysis array
-		##Indicator_str,Parameters_dic,Weighted_squeeze_flo,Plot_row_int = 1 ,Plot_col_int = 1, Mean_factor_bol = False):
-
-	Indicator_analysis_array = [
-			{
-				'Indicator_str':'SimpleMovingAverage',
-				'Parameters_dic' :
-					{
-						'period': [5,601,20]
-					},
-				'Weighted_squeeze_flo' : 1,
-				'Plot_row_int': 1,
-				'Plot_col_int': 1,
-				'Mean_factor_bol' : False
-
-			},
-			{
-				'Indicator_str' : 'MomentumOsc',
-				'Parameters_dic' : 
-					{
-						'period': [5,601,20],
-						'band': [5,100,5]
-					},
-				'Weighted_squeeze_flo' : 0.005,
-				'Plot_row_int' : 2,
-				'Plot_col_int' : 1,
-				'Mean_factor_bol' : False
-			}
-		]
-
-	## Indicator analysis object, to analysis Indicator stock date with backtrader
-	class Indicator_analysis(bt.Strategy): 
-		def __init__(self):
-			for indicator_object in Indicator_analysis_array:
-				print ("indicator_object : ",indicator_object)
-				Indicator_analysis_helper_json_init(self,			#Indicator_analysis_obj
-					indicator_object, 							#Indicator_object
-					indicator_object['Parameters_dic'], 		#Link_Indicator_Parameters_dic
-					{}, 										#Curr_Indicator_Parameters_dic
-					list(indicator_object['Parameters_dic'].keys())) 	#Indicator_Parameters_keys
-
-				# int_key_list = ind['Parameters_dic'].keys()
-
-				# for x in range(ind['Parameters_dic'][int_key_list[0]][0],ind['Parameters_dic'][int_key_list[0]][1],ind['Parameters_dic'][int_key_list[0]][2]):
-
-				# ind['Parameters_dic'][int_key_list[0]]
-
-			
-
-				# for key, value in ind['Parameters_dic'].items():
-				# 	ind['Parameters_dic'][key]
-
-				# ind['Parameters_dic'].keys()
 
 
-				# for x in range(starter,maxer,spacer):
-				# 	## setting values
-				# 	ind['Parameters_dic']['period'] = int(x)
-
-				# 	Indicator_analysis_helper_init(self,ind['Indicator_str'],ind['Parameters_dic'])
-				# 	for ax in range(starter,100,5):
-				# 		ind['Parameters_dic']['band'] = int(x)
-
-				# 		Indicator_analysis_helper_init(self,'MomentumOsc',{'period':int(x),'band':int(ax)})
-
-				# 	#setattr(self,('momentum_oscillator_'+ str(int(x))+'_'+str(int(ax))), bt.ind.MomentumOsc(period=(int(x)), band=int(ax)))
-
-		def stop(self):
-			for x in range(starter,maxer,spacer):
-				Indicator_analysis_helper_stop(self,'SimpleMovingAverage',{'period': int(x)})
-				for ax in range(starter,100,5):
-					Indicator_analysis_helper_stop(self,'MomentumOsc',{'period':int(x),'band':int(ax)})			
-
-	## Using all stock
-	for symbol in tqdm(symbols, desc='Creating Stock analysis Charts', position=0):
-		all_data_ans = [];	colum_text = [];	file_name = symbol+'_daily_analysis'
-
-		## Getting the inital data
-		data = engine.execute("""SELECT * FROM _daily_prices 
-									WHERE symbol = '""" +symbol+ """'  
-									ORDER BY symbol ASC, date ASC """)
-		dfmain = pd.DataFrame(data.fetchall())
-		dfmain.columns = data.keys()
-		dfmain.set_index('date', inplace=True)
-		analysis_data = bt.feeds.PandasData(dataname=dfmain)
-		dfmain.insert(1, "date",dfmain.index[...], True) ## Adding in data of date
-
-		## Base Indicator analysis
-		cerebro = bt.Cerebro()  # create a "Cerebro" engine instance
-		cerebro.adddata(analysis_data)  # Add the data feed
-		cerebro.addstrategy(Indicator_analysis)  # Add the trading strategy
-		cerebro.run()#mil = 10
-
-		## Creating the stock plots
-		fig = make_subplots(rows=3, cols=1, row_heights=[0.7, 0.2, 0.2])
-		fig.add_trace(go.Candlestick(x=dfmain.index[...],open=dfmain['open'], high=dfmain['high'],low=dfmain['low'],close=dfmain['close'])
-				,row=1, col=1) 
-
-		## Adding analysised data to the plot
-		for x in range(starter,maxer,(spacer*10)):
-			Indicator_analysis_helper_plot(fig,'SimpleMovingAverage',{'period': int(x)},1)
-			for ax in range(starter,100,45):
-				Indicator_analysis_helper_plot(fig,'MomentumOsc',{'period':int(x),'band':int(ax)},1,
-					Plot_row_int = 2 ,Plot_col_int = 1, Mean_factor_bol = False)
-			
-		## Setting axis for the layout
-		fig.update_layout(
-			xaxis_rangeslider_visible=False,
-		    title= file_name.replace('_',' '),
-		    yaxis_title='Stock Price',
-		    xaxis_title='Date'
-		)
-
-		## Setting up paths and creating file and database
-		if not os.path.exists(BASE_DIR +"/src/charts"):os.mkdir(BASE_DIR +"/src/charts")
-		if not os.path.exists(BASE_DIR +"/src/charts/analysis"):os.mkdir(BASE_DIR +"/src/charts/analysis")
-		if not os.path.exists(BASE_DIR +"/src/charts/analysis/html"):os.mkdir(BASE_DIR +"/src/charts/analysis/html")
-		fig.write_html(BASE_DIR +"/src/charts/analysis/html/"+file_name+".html")
-		dfmain.to_sql("_test_analysis_table_prices", engine, if_exists='append', index=False)
-
-	# ## Manageing save and view options
-	# if (sys.argv[6] == "save" and len(sys.argv)) or  (sys.argv[6] == "both" and len(sys.argv)) > 6:
-	# 	if not os.path.exists(BASE_DIR +"/src/charts"):os.mkdir(BASE_DIR +"/src/charts")
-	# 	if not os.path.exists(BASE_DIR +"/src/charts/raw"):os.mkdir(BASE_DIR +"/src/charts/raw")
-		
-	# 	do = "all"
-	# 	if len(sys.argv) == 8:
-	# 		do = sys.argv[7]
-
-	# 	if do == "html" or do == "all":
-	# 		if not os.path.exists(BASE_DIR +"/src/charts/raw/html"):os.mkdir(BASE_DIR +"/src/charts/raw/html")
-	# 		fig.write_html(BASE_DIR +"/src/charts/raw/html/"+file_name+".html")
-
-	# 	if do == "svg" or do == "all":
-	# 		if not os.path.exists(BASE_DIR +"/src/charts/raw/svg"):os.mkdir(BASE_DIR +"/src/charts/raw/svg")
-	# 		fig.write_image(BASE_DIR +"/src/charts/raw/svg/"+file_name+".svg")
-
-	# 	if do == "png" or do == "all":
-	# 		if not os.path.exists(BASE_DIR +"/src/charts/raw/png"):os.mkdir(BASE_DIR +"/src/charts/raw/png")
-	# 		fig.write_image(BASE_DIR +"/src/charts/raw/svg/"+file_name+".png")
-
-		##fig.show()
 
 
-		##print(dfmain)
+
+
+
+
+
+
+
 
 # ## start working with other custom Indicator analysis
 # 	## Full Wick average lengths for data
@@ -735,7 +493,7 @@ def backtesting():
 	all_resampled = ['daily','weekly','monthly']
 	start = '2004-12-31 00:00:00'
 	end = '2021-07-08 00:00:00'
-	stock = 'BB'
+	stock = 'MBI'
 
 	query = """
 			SELECT * FROM _test_analysis_table_prices 
@@ -747,6 +505,7 @@ def backtesting():
 	data = engine.execute(query)
 	dataframe = pd.DataFrame(data.fetchall())
 	dataframe.columns = data.keys()
+
 	class DummyInd(bt.Indicator):
 		lines = ('dummyline',)
 		params = (('value', 10),)
@@ -755,30 +514,18 @@ def backtesting():
 			self.lines.dummyline[0] = max(0.0, self.params.value)
 
 		def once(self, start, end):
-			dummy_array = self.lines.dummyline.array
-
-			count = 0 
-			for i, row in dataframe.iterrows():
-				##print('dataframe','\n',i,'\n',row)
-				self.lines.dummyline.array[count] = max(0.0, row['simplemovingaverage_5'])
-				count = count + 1
-
-			# print('self.lines.dummyline',self.lines.dummyline)
-			# print('dummy_array.array',self.lines.dummyline.array)
-			# print('dummy_array.pure',dummy_array)
-
-
-
-
+			self.lines.dummyline.array = dataframe['simplemovingaverage_5'].tolist()
+	
 	class sma5(bt.Indicator):
 		lines = ('simplemovingaverage_5',)
 
 		params = (('num',0),)#(('value', 5),)
 
-		print(bt.Indicator)
+		#print(bt.Indicator)
 		def __init__(self):
-			self.sma5 = dataframe['simplemovingaverage_5']
-			print(self.sma5)
+			self.simplemovingaverage_5 = dataframe['simplemovingaverage_5']
+			#self.lines.simplemovingaverage_5 = 
+			print(self.simplemovingaverage_5)
 
 
 	dataframe.set_index('date', inplace=True)
@@ -792,37 +539,51 @@ def backtesting():
 
 		def __init__(self):
 
-			##self.sma1 = bt.ind.SMA(dataframe['simple_moving_average_5'], period=1, subplot=False)
+			#self.smatest = DummyInd(value=1)
+			
+			self.sma1 = bt.ind.MovingAverageBase(period=20)
+			#bt.ind.Ichimoku(tenkan=9,kijun=26,senkou=52,senkou_lead=26,chikou=26)
 
-			##self.sma1 = bt.ind.SMA(self.data.close, period=1, subplot=False)
-			##self.sma1 = bt.ind.SMA(self.data.close, period=1, subplot=False)
+			self.sma1.plotinfo.subplot=False
+			self.sma2 = bt.ind.SMA(period=20)
+			self.sma2.plotinfo.subplot=False
+			#print(self.sma1)
 
-			# print(self.data.close)
 
-			# self.fma = bt.ind.SmoothedMovingAverage(
-			# 	self.data.simple_moving_average_5, 
-			# 	period=1,
-			# 	plotname="50 day moving average")
 
-			self.sma1 = DummyInd(value=10, subplot=False)  # fast moving average
 			# print(sma1)
-			self.sma2 = bt.ind.SMA(self.data.close,period=100)  # slow moving average
+			#self.sma2 = bt.ind.fractal(period=5,bardist=0.015,shift_to_potential_fractal=2)  # slow moving average
+			#self.sma2 = bt.studies.Fractal()
+
+			#print(self.data.date)
+			#self.counter = 0
 			# print(self.sma1)
 			# print(self.sma2)
 			# accde1 = bt.ind.MomentumOsc(period= 12,band= 100)  # slow moving average
 			# accde2 = bt.ind.MomentumOsc(period= 100,band= 100)  # slow moving averag
-			self.crossover1 = bt.ind.CrossOver(self.sma1, self.sma2)  # crossover signal
+			#self.crossover1 = bt.ind.CrossOver(self.sma1, self.sma2)  # crossover signal
+			self.crossover2 = bt.ind.CrossOver(self.sma1, self.sma2)  # crossover signal
 			# print(self.crossover1)
 
 			# self.crossover2 = bt.ind.CrossOver(accde1, accde2)  # crossover signal
 
 		def next(self):
 			if not self.position:  # not in the market
-				if self.crossover1 > 0:  # if fast crosses slow to the upside
+				if self.crossover2 > 0:  # if fast crosses slow to the upside
 					self.buy()  # enter long
 
-			elif self.crossover1 < 0:  # in the market & cross to the downside
+			elif self.crossover2 < 0:  # in the market & cross to the downside
 				self.close()  # close long position
+			# if self.counter == 30:
+			# 	if not self.position:  # not in the market
+			# 		self.buy()  # enter long
+			# 		self.counter = 0
+
+			# 	else:  # in the market & cross to the downside
+			# 		self.close()  # close long position
+			# 		self.counter = 0
+
+			
 
 		# def stop(self):
 		# 	myvalues = self.mysma.sma.get(size=len(self.mysma))
@@ -836,13 +597,13 @@ def backtesting():
 	data = bt.feeds.PandasData(dataname=dataframe)
 
 	cerebro.broker.set_cash(1000)
-	cerebro.broker.setcommission(commission=0.0001)
+	cerebro.broker.setcommission(commission=0.01)
 	cerebro.adddata(data)  # Add the data feed
 	cerebro.addstrategy(SmaCross)  # Add the trading strategy
 
 
 
-	cerebro.addsizer(bt.sizers.PercentSizer, percents=50)  # default sizer for strategies
+	cerebro.addsizer(bt.sizers.PercentSizer, percents=20)  # default sizer for strategies
 
 
 
@@ -860,6 +621,339 @@ def backtesting():
 
 
 
+def geneticalgorithm():
+	print("Starting Main Genetic Algorithm Running ... this could take a while")
+
+	## Getting all information needed
+	start = '2004-12-31 00:00:00'
+	end = '2021-07-08 00:00:00'
+	stock = 'MBI'
+
+	query = """
+			SELECT * FROM _test_analysis_table_prices 
+					WHERE symbol = '"""+stock+"""' 
+					AND date > '""" +start+"""' 
+					AND date < '""" +end+"""' 
+				ORDER BY symbol ASC, date ASC
+			"""
+
+	data = engine.execute(query)
+	dataframe = pd.DataFrame(data.fetchall())
+	dataframe.columns = data.keys()
+	dataframe.set_index('date', inplace=True)
+
+	##START
+
+
+	float_safety_prim = 10000
+	plot_spacing = 1#5
+
+	def Price_based_Indicators_lines_helper_coverter(PD_indicator_object,
+		Parameters_dic,
+		Temp_lines_list):
+		## Calculating procedurally-generated name
+		Indicator_name = PD_indicator_object['Indicator_str'].replace('ind','').lower()+'_'+str("_".join(map(str, Parameters_dic.values()))).replace('.','p')
+		## Setting data name as a line name for lines in backtrader
+		Temp_lines_list.append(Indicator_name)
+	def Price_based_Indicators_lines_json_helper_coverter(PD_indicator_object,
+		Link_Indicator_Parameters_dic,
+		Curr_Indicator_Parameters_dic,
+		Indicator_Parameters_keys,
+		Temp_lines_list):
+
+		## If value is a float then will move to reasonable integer but multiplying by float_safety_prim (some number with alot of zeros)
+		float_safety = 1
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0], float):
+			float_safety = float_safety_prim
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1], float):
+			float_safety = float_safety_prim
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2], float):
+			float_safety = float_safety_prim
+
+		## Will set the min(start), max(end), and amount(freqs) for intra-indicator indicator parameters formations
+		start = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0]*float_safety
+		end = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1]*float_safety
+		freqs = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2]*float_safety
+
+		## Creating or adding to curr set of indicator parameters, to make indicator parameters formation
+		for x in range(int(start),int(end),int(freqs)):
+			if (float_safety == 1) and not (x == 0):
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = int(x)
+			elif x == 0:
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = int(x)
+			else:
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = x/float_safety
+
+			## if more parameters founded, recursively adding another layer to the indicator parameters formation
+			if len(Indicator_Parameters_keys) > 1:
+				Price_based_Indicators_lines_json_helper_coverter(PD_indicator_object,
+					Link_Indicator_Parameters_dic,
+					Curr_Indicator_Parameters_dic,
+					Indicator_Parameters_keys[1:],
+					Temp_lines_list)
+			else:
+				Price_based_Indicators_lines_helper_coverter(PD_indicator_object,Curr_Indicator_Parameters_dic,Temp_lines_list)
+	def Price_based_Indicators_lines_coverter(Price_based_Indicators):
+		temp_lines = []
+		for PD_indicator_object in Price_based_Indicators:
+			if len(list(PD_indicator_object['Parameters_dic'].keys())) > 0 :
+				Price_based_Indicators_lines_json_helper_coverter(PD_indicator_object, 	#PD_indicator_object
+					PD_indicator_object['Parameters_dic'], 								#Link_Indicator_Parameters_dic
+					{}, 																#Curr_Indicator_Parameters_dic
+					list(PD_indicator_object['Parameters_dic'].keys()),					#Indicator_Parameters_keys
+					temp_lines)															#Temp_lines_list 	
+			else:
+				Price_based_Indicators_lines_helper_coverter(PD_indicator_object['Indicator_str'],{},temp_lines)
+		return temp_lines
+
+	## The Indicator analysis array
+	Price_based_Indicators = json.load(open('Price_based_Indicators.json'))# Opening JSON file
+	Price_based_Indicators_lines = Price_based_Indicators_lines_coverter(Price_based_Indicators)
+	#print(Price_based_Indicators_lines)
+	## takes data from database and makes it in to backtrader usable object of Indicator type
+	## Helper fuctions
+	def Price_based_Indicators_helper_coverter(Indicator_object,
+		PD_indicator_object,
+		Parameters_dic):
+		## Calculating procedurally-generated name
+		Indicator_name = PD_indicator_object['Indicator_str'].replace('ind','').lower()+'_'+str("_".join(map(str, Parameters_dic.values()))).replace('.','p')
+		## Setting data to it's line in backtrader
+		setattr(getattr(getattr(Indicator_object,"lines"),Indicator_name),"array",dataframe[Indicator_name].tolist())
+	def Price_based_Indicators_json_helper_coverter(Indicator_object,
+		PD_indicator_object,
+		Link_Indicator_Parameters_dic,
+		Curr_Indicator_Parameters_dic,
+		Indicator_Parameters_keys):
+
+		## If value is a float then will move to reasonable integer but multiplying by float_safety_prim (some number with alot of zeros)
+		float_safety = 1
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0], float):
+			float_safety = float_safety_prim
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1], float):
+			float_safety = float_safety_prim
+		if isinstance(Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2], float):
+			float_safety = float_safety_prim
+
+		## Will set the min(start), max(end), and amount(freqs) for intra-indicator indicator parameters formations
+		start = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][0]*float_safety
+		end = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][1]*float_safety
+		freqs = Link_Indicator_Parameters_dic[Indicator_Parameters_keys[0]][2]*float_safety
+
+		## Creating or adding to curr set of indicator parameters, to make indicator parameters formation
+		for x in range(int(start),int(end),int(freqs)):
+			if (float_safety == 1) and not (x == 0):
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = int(x)
+			elif x == 0:
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = int(x)
+			else:
+				Curr_Indicator_Parameters_dic[Indicator_Parameters_keys[0]] = x/float_safety
+
+			## if more parameters founded, recursively adding another layer to the indicator parameters formation
+			if len(Indicator_Parameters_keys) > 1:
+				Price_based_Indicators_json_helper_coverter(Indicator_object,
+					PD_indicator_object,
+					Link_Indicator_Parameters_dic,
+					Curr_Indicator_Parameters_dic,
+					Indicator_Parameters_keys[1:])
+			else:
+				Price_based_Indicators_helper_coverter(Indicator_object,PD_indicator_object,Curr_Indicator_Parameters_dic)
+	## Main Class
+	class Price_based_database_converter(bt.Indicator):
+		lines = tuple(Price_based_Indicators_lines)
+		def once(self, start, end):
+			for PD_indicator_object in tqdm(Price_based_Indicators, desc='Database Data converter ', position=0):
+				if len(list(PD_indicator_object['Parameters_dic'].keys())) > 0 :
+					Price_based_Indicators_json_helper_coverter(self,			#Indicator_object (database_converter Indicator_object)				
+						PD_indicator_object, 									#PD_indicator_object
+						PD_indicator_object['Parameters_dic'], 					#Link_Indicator_Parameters_dic
+						{}, 													#Curr_Indicator_Parameters_dic
+						list(PD_indicator_object['Parameters_dic'].keys()))		#Indicator_Parameters_keys)												 	
+				else:
+					Price_based_Indicators_helper_coverter(self,PD_indicator_object['Indicator_str'],{})
+
+	## Hold the Strategy applied to the test based on the chromosme
+	class chromosome_StrategyContainer(bt.Strategy):
+		def __init__(self):
+			self.price_based_data = Price_based_database_converter()
+			self.price_based_data.plotinfo.subplot=False
+			self.price_based_data.plotinfo.plotlinevalues=True
+
+			# print("heer")
+			
+			# print(self)
+
+			## Method 1
+			""" 
+			Basic crossover of all the price similar types of Indicators, for examples all the types of avagers
+			"""
+			basic_price_gauge_crossover(self, status ='__init__')
+
+			#self.smatest = DummyInd(value=1)
+
+		# def next(self):
+		# 	if not self.position:  # not in the market
+		# 		self.buy()  # enter long
+
+		# 	else:
+		# 		self.close()  
+	
+	def basic_price_gauge_crossover(self,status='__init__'):
+		gene_list = []
+		def basic_price_gauge_crossover_init(self):
+			crossover_groups =list(permutations(Price_based_Indicators_lines, 2))
+			print(len(crossover_groups))
+			for crossover_group in tqdm(crossover_groups, desc='basic_price_gauge_crossover_init', position=0):
+				gene_name = ("crossover"+("_".join(crossover_group).replace("_","")))
+				gene_list.append(gene_name)
+
+				## Creating crossover genes
+				setattr	(self, # Object to set attr to
+						gene_name, # attr name
+						bt.ind.CrossOver( # Set values for attr
+							getattr(getattr(self.price_based_data,"lines"),crossover_group[0]),
+							getattr(getattr(self.price_based_data,"lines"),crossover_group[1])
+							) 
+						)
+			##calls bt.'*bt_src'.'*Indicator_str'(*Parameters_dic)
+			##ex: calls bt.ind.SimpleMovingAverage(**Parameters_dic)
+			#)
+
+				#self.
+
+		def basic_price_gauge_crossover_next(self):
+			print("ba")
+
+		if status == '__init__': basic_price_gauge_crossover_init(self)
+		elif status == 'next': basic_price_gauge_crossover_next(self)
+
+
+
+	cerebro = bt.Cerebro()  # create a "Cerebro" engine instance
+	# cerebro = bt.Cerebro(stdstats=False)
+
+	# Pass it to the backtrader datafeed and add it to the cerebro
+	data = bt.feeds.PandasData(dataname=dataframe)
+
+	cerebro.broker.set_cash(1000)
+	cerebro.broker.setcommission(commission=0.01)
+	cerebro.adddata(data)  # Add the data feed
+	cerebro.addstrategy(chromosome_StrategyContainer)  # Add the trading strategy
+
+
+
+	cerebro.addsizer(bt.sizers.PercentSizer, percents=20)  # default sizer for strategies
+
+
+
+	print('Starting Portfolio Value : %0.2f' % cerebro.broker.getvalue())
+	cerebro.run() # run it all
+	cerebro.plot() # and plot it with a single command
+	print('Final Portfolio Value : %0.2f' % cerebro.broker.getvalue())
+
+def custom_analysis(plot_figure_obj,main_dataframe):
+    def support_resistance_detection(plot_figure_obj,df):
+        ## Credit: https://towardsdatascience.com/detection-of-price-support-and-resistance-levels-in-python-baedc44c34c9
+        def isSupport(df,i):
+          support = df['low'][i] < df['low'][i-1]  and df['low'][i] < df['low'][i+1] and df['low'][i+1] < df['low'][i+2] and df['low'][i-1] < df['low'][i-2]
+          return support
+        def isResistance(df,i):
+          resistance = df['high'][i] > df['high'][i-1]  and df['high'][i] > df['high'][i+1] and df['high'][i+1] > df['high'][i+2] and df['high'][i-1] > df['high'][i-2]
+          return resistance
+        def isFarFromLevel(l,levels,s):
+           return np.sum([abs(l-x) < s  for x in levels]) == 0
+
+        def collapse_levels(df,levels,s):
+            new_levels =  [[levels[0][0],levels[0][1],levels[0][0],levels[0][1],levels[0][0],levels[0][1]]]
+
+            for level in levels:
+                mark = False
+
+                for idx, le in enumerate(new_levels):
+                    if abs(le[1]-level[1]) < s:
+                        # print('work',level[1],le[1])
+                        tec = [level[0],level[1],le[0],min(level[1],le[1])*0.95,level[0],max(level[1],le[1])*1.05]  #mx,my,x1,y1,x2,y2
+                        new_levels.pop(idx)
+                        new_levels.insert((idx-1),tec)
+                    else:
+                        mark = True
+                if mark:
+                    new_levels.append([level[0],level[1],level[0],level[1]*0.95,level[0],level[1]*1.05])#mx,my,x1,y1,x2,y2
+
+
+            res = []
+            for i in new_levels:
+                if i not in res:
+                    res.append(i)
+
+            return res
+
+
+        def plot_all(fig,df,levels):
+            # print(df.head())
+          # fig, ax = plt.subplots()
+
+          # candlestick_ohlc(ax,df.values,width=0.6, \
+          #                  colorup='green', colordown='red', alpha=0.8)
+          # date_format = mpl_dates.DateFormatter('%d %b %Y')
+          # ax.xaxis.set_major_formatter(date_format)
+          # fig.autofmt_xdate()
+          # fig.tight_layout()
+            y_sp = 30
+            for level in levels:
+                #print(df['date'][level[0]])
+                #print(level[1])
+                while level[4]+1 > len(df['date']):
+                    level[4] = level[4]-1
+
+                while level[4]+y_sp+1 > len(df['date']):
+                    y_sp = y_sp-1
+                
+                fig.add_trace(
+                    go.Scatter( x=[(df['date'][level[2]]),  (df['date'][level[2]]),     (df['date'][level[4]+y_sp]),    (df['date'][level[4]+y_sp])], 
+                                y=[(level[3]),              (level[5]),         (level[5]),         (level[3])],
+                                fill="toself"
+                        )
+                    ,row=1, col=1) 
+
+        ## START
+
+        s =  np.mean(df['high'] - df['low'])*0.5
+
+        levels = []
+        for i in range(2,df.shape[0]-2):
+          if isSupport(df,i):
+            levels.append((i,df['low'][i]))
+          elif isResistance(df,i):
+            levels.append((i,df['high'][i]))
+
+        # levels = []
+        # for i in range(2,df.shape[0]-2):
+        #   if isSupport(df,i):
+        #     l = df['low'][i]
+        #     if isFarFromLevel(l,levels,s):
+        #       levels.append((i,l))
+        #   elif isResistance(df,i):
+        #     l = df['high'][i]
+        #     if isFarFromLevel(l,levels,s):
+        #       levels.append((i,l))
+
+        # print(levels)
+        new_levels = collapse_levels(main_dataframe,levels,s)
+        #print(new_levels)
+        plot_all(plot_figure_obj,main_dataframe,new_levels)
+
+        ## END
+
+
+
+
+
+
+
+
+
+    support_resistance_detection(plot_figure_obj,main_dataframe)
+
 ## Handles Arg and useage	
 def main_manager():
 	if(sys.argv[1]=='help' and len(sys.argv) > 1):print(open("db_manager_help.txt", "r").read())
@@ -868,6 +962,7 @@ def main_manager():
 	elif(sys.argv[1]=='chart' and len(sys.argv) < 9):chart() 
 	elif(sys.argv[1]=='analysis' and len(sys.argv) <= 10):analysis() 
 	elif(sys.argv[1]=='backtesting' and len(sys.argv) <= 10):backtesting()
+	elif(sys.argv[1]=='geneticalgorithm' and len(sys.argv) <= 10):geneticalgorithm()
 	else:print("Incorrect/Unrecognized Arguments, Type 'db_manager.py help' for help")
 
 if __name__ == "__main__":

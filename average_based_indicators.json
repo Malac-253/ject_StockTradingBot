@@ -1,0 +1,209 @@
+[
+  {
+    "Indicator_str": "AdaptiveMovingAverage",
+    "Indicator_str_short": "KAMA",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ],
+      "fast": [
+        1,
+        101,
+        50
+      ],
+      "slow": [
+        101,
+        202,
+        50
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind"
+  },
+  {
+    "Indicator_str": "DicksonMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ],
+      "gainlimit": [
+        5,
+        101,
+        50
+      ],
+      "hperiod": [
+        5,
+        101,
+        50
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "DMA"
+  },
+  {
+    "Indicator_str": "ExponentialMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "EMA"
+  },
+  {
+    "Indicator_str": "DoubleExponentialMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "DEMA"
+  },
+  {
+    "Indicator_str": "ExponentialSmoothing",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "ExpSmoo"
+  },
+  {
+    "Indicator_str": "HullMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "HMA"
+  },
+  {
+    "Indicator_str": "MovingAverageSimple",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "SMA"
+  },
+  {
+    "Indicator_str": "SmoothedMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "SMMA"
+  },
+  {
+    "Indicator_str": "TripleExponentialMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "TEMA"
+  },
+  {
+    "Indicator_str": "WeightedMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "WMA"
+  },
+  {
+    "Indicator_str": "ZeroLagExponentialMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        106,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": "",
+    "bt_src": "ind",
+    "Indicator_str_short": "ZLEMA"
+  }
+]

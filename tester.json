@@ -1,0 +1,766 @@
+[
+  {
+    "Indicator_str": "SimpleMovingAverage",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false,
+    "_comment": ""
+  },
+  {
+    "Indicator_str": "CumSum",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        200
+      ]
+    },
+    "Weighted_squeeze_flo": 1.5,
+    "Plot_row_int": 4,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "AccDeOsc",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1.5,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "MomentumOsc",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "band": [
+        5,
+        606,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AdaptiveMovingAverage",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "fast": [
+        5,
+        304,
+        100
+      ],
+      "slow": [
+        305,
+        206,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "MovingAverageAdaptiveEnvelope",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "fast": [
+        5,
+        304,
+        100
+      ],
+      "slow": [
+        305,
+        206,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "MovingAverageAdaptiveOscillator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "fast": [
+        5,
+        304,
+        100
+      ],
+      "slow": [
+        305,
+        206,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AroonDown",
+    "_comment": "between 0 and 100",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        0,
+        40,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AroonOsc",
+    "_comment": "between -100 and 100",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        0,
+        40,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AroonUp",
+    "_comment": "between -100 and 100",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        0,
+        40,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AroonUpDown",
+    "_comment": "between -100 and 100",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        0,
+        40,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AroonUpDownOsc",
+    "_comment": "between -100 and 100",
+    "Parameters_dic": {
+      "period": [
+        5,
+        606,
+        100
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        0,
+        40,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "Average",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AverageDirectionalMovementIndex",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AverageDirectionalMovementIndexRating",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AverageTrueRange",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "AwesomeOsc",
+    "_comment": "",
+    "Parameters_dic": {
+      "fast": [
+        1,
+        300,
+        100
+      ],
+      "slow": [
+        301,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "BollingerBands",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "devfactor": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "BollingerBandsPct",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "devfactor": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DV2",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "maperiod": [
+        1,
+        100,
+        24
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 3,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DetrendedPriceOscillator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DicksonMovingAverage",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "gainlimit": [
+        1,
+        61,
+        10
+      ],
+      "hperiod": [
+        1,
+        61,
+        10
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "DicksonMovingAverageEnvelope",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "gainlimit": [
+        1,
+        61,
+        10
+      ],
+      "hperiod": [
+        1,
+        61,
+        10
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DicksonMovingAverageOscillator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "gainlimit": [
+        1,
+        61,
+        10
+      ],
+      "hperiod": [
+        1,
+        61,
+        10
+      ],
+      "perc": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DirectionalIndicator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DirectionalMovement",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DirectionalMovementIndex",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DoubleExponentialMovingAverage",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DoubleExponentialMovingAverageEnvelope",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "perc": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DoubleExponentialMovingAverageOscillator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 2,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  },
+  {
+    "Indicator_str": "DownDay",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "DownDayBool",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "DownMove",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "Envelope",
+    "_comment": "",
+    "Parameters_dic": {
+      "perc ": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "ExponentialMovingAverage",
+    "_comment": "",
+    "Parameters_dic": {
+      "period  ": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "ExponentialMovingAverageOscillator",
+    "_comment": "",
+    "Parameters_dic": {
+      "period  ": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "ExponentialMovingAverageEnvelope",
+    "_comment": "",
+    "Parameters_dic": {
+      "period  ": [
+        1,
+        601,
+        100
+      ],
+      "perc ": [
+        1,
+        101,
+        25
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "ExponentialSmoothing",
+    "_comment": "",
+    "Parameters_dic": {
+      "period  ": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "ExponentialSmoothingDynamic",
+    "_comment": "",
+    "Parameters_dic": {
+      "period  ": [
+        1,
+        601,
+        100
+      ]
+    },
+    "Weighted_squeeze_flo": 1,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": false
+  },
+  {
+    "Indicator_str": "CommodityChannelIndex",
+    "_comment": "",
+    "Parameters_dic": {
+      "period": [
+        1,
+        601,
+        100
+      ],
+      "factor": [
+        0.001,
+        1.001,
+        0.1
+      ],
+      "upperband": [
+        60,
+        101,
+        20
+      ],
+      "lowerband": [
+        -101,
+        -60,
+        20
+      ]
+    },
+    "Weighted_squeeze_flo": 0.005,
+    "Plot_row_int": 1,
+    "Plot_col_int": 1,
+    "Mean_factor_bol": true
+  }
+]

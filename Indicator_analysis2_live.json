@@ -1,0 +1,69 @@
+[
+	{
+		"Indicator_str":"SimpleMovingAverage",
+		"Parameters_dic" :
+			{
+				"period": [5,601,20]
+			},
+		"Weighted_squeeze_flo" : 1,
+		"Plot_row_int": 1,
+		"Plot_col_int": 1,
+		"Mean_factor_bol" : false
+
+	},{
+		"Indicator_str" : "CumSum",
+		"Parameters_dic" : 
+			{
+				"seed ": [0,101,25]
+			},
+		"Weighted_squeeze_flo" : 1.5,
+		"Plot_row_int" : 2,
+		"Plot_col_int" : 1,
+		"Mean_factor_bol" : false
+	},{
+		"Indicator_str" : "AccDeOsc",
+		"Parameters_dic" : 
+			{
+				"period": [5,601,20]
+			},
+		"Weighted_squeeze_flo" : 1.5,
+		"Plot_row_int" : 2,
+		"Plot_col_int" : 1,
+		"Mean_factor_bol" : false
+	},{
+		"Indicator_str" : "MomentumOsc",
+		"Parameters_dic" : 
+			{
+				"period": [5,601,20],
+				"band": [5,101,10]
+			},
+		"Weighted_squeeze_flo" : 0.005,
+		"Plot_row_int" : 1,
+		"Plot_col_int" : 1,
+		"Mean_factor_bol" : true
+	},{
+		"Indicator_str" : "AdaptiveMovingAverage",
+		"Parameters_dic" : 
+			{
+				"period": [5,601,20],
+				"fast": [5,300,20],
+				"slow": [301,601,20]
+			},
+		"Weighted_squeeze_flo" : 0.005,
+		"Plot_row_int" : 1,
+		"Plot_col_int" : 1,
+		"Mean_factor_bol" : true
+	},{
+		"Indicator_str" : "aroondown",
+		"Parameters_dic" : 
+			{
+				"period": [5,601,20],
+				"fast": [5,300,20],
+				"slow": [301,601,20]
+			},
+		"Weighted_squeeze_flo" : 0.005,
+		"Plot_row_int" : 1,
+		"Plot_col_int" : 1,
+		"Mean_factor_bol" : true
+	}
+]

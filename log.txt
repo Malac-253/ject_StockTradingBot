@@ -1,0 +1,39 @@
+6/23/2021 - light python virtual environment creation help 
+		> "https://docs.python.org/3/library/venv.html" 
+			--> python3 -m venv
+		> "https://www.youtube.com/watch?v=F5mRW0jo-U4&t=321s" 
+		> "https://www.stanleyulili.com/powershell/solution-to-running-scripts-is-disabled-on-this-system-error-on-powershell/"
+			-->
+6/23/2021 - After set up : scripts\activate to start, virtual environment
+6/23/2021 - (STEP 1) : https://www.youtube.com/watch?v=Pakgmq1nYm0&list=PL1aY73VZpg2R4MgBbX4XHz-WBAFbAWECj&index=3
+6/23/2021 - pip install pandas , pip install xlrd , pip install pandas-datareader , pip install DataTime
+6/24/2021 - (STEP 2) : https://www.youtube.com/watch?v=v-VWgQ-O540&list=PL1aY73VZpg2R4MgBbX4XHz-WBAFbAWECj&index=5&t=741s
+6/24/2021 - (STEP 3) : Create database manager "db_manager.py"
+		> 'help'
+		> 'createdatabase'
+		> 'createspecificdatabase'
+		> 'updatedatabase'	
+6/25/2021 - work on bug fixes, and one big database rather than many small ones, to better use SQL benefits
+6/25/2021 - Must clean up and start and trend work for next time
+
+
+AAU
+OCGN
+BB
+AMZN
+NAKD
+ZOM
+AAL
+CDAY
+SD
+SPH
+ALAC
+DRUA
+LIVK
+EYEN
+GOLD
+NSS
+BSAC
+MBI
+CELC
+TWTR
